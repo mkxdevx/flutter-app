@@ -1,5 +1,6 @@
 import Form from "@/components/Form";
 import Header from "@/components/Header";
+import CommentFeed from "@/components/posts/CommentFeed";
 import PostItem from "@/components/posts/PostItem";
 import usePost from "@/hooks/usePost";
 import { useRouter } from "next/router";
@@ -22,8 +23,9 @@ const postView = () => {
   return (
     <>
     <Header label="Tweet" showBackArrow />
-    <PostItem data={fetchedPost} />
+    <PostItem data={fetchedPost} userId={fetchedPost.id} />
     <Form postId={postId as string} isComment placeholder="Reply" />
+    <CommentFeed comments={fetchedPost?.comments} />
     </>
   )
 }

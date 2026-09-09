@@ -7,6 +7,7 @@ import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import Button from "./Button";
 import Avatar from "./Avatar";
+import usePost from "@/hooks/usePost";
 
 interface FormProps {
   placeholder: string;
@@ -19,6 +20,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
   const loginModal = useLoginModal();
   const { data: currentUser } = useCurrentUser();
   const { mutate: mutatePosts } = usePosts(postId as string);
+  const { mutate: mutatePost } = usePost(postId as string);
   const [body, setBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const onSubmit = useCallback(async () => {
@@ -31,13 +33,14 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
 
       setBody("");
       mutatePosts();
+      mutatePost();
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
     }
-  }, [body, mutatePosts, isComment, postId]);
+  }, [body, mutatePosts, mutatePost, isComment, postId]);
 
   return (
     <div className="border-b-[1px] border-neutral-800 px-5 py-2">
@@ -64,7 +67,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
       ) : (
         <div className="py-8">
           <h1 className="text-white text-2xl text-center mb-4 font-bold">
-            Welcome to Twitter
+            Welcome to Flutter
           </h1>
           <div className="flex flex-row items-center justify-center gap-4">
             <Button label="Login" onClick={loginModal.onOpen} />
