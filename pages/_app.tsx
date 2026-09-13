@@ -6,17 +6,24 @@ import RegisterModal from "@/components/modals/RegisterModal";
 import { Toaster } from "react-hot-toast";
 import { SessionProvider } from "next-auth/react";
 import EditModal from "@/components/modals/EditModal";
+import { SWRConfig } from "swr";
+import fetcher from "@/libs/fetcher";
 
-export default function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   return (
     <SessionProvider session={session}>
-      <Toaster />
-      <EditModal />
-      <RegisterModal />
-      <LoginModal />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <SWRConfig value={{ fetcher }}>
+        <Toaster />
+        <EditModal />
+        <RegisterModal />
+        <LoginModal />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </SWRConfig>
     </SessionProvider>
   );
 }

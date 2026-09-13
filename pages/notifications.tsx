@@ -1,10 +1,11 @@
 import Header from "@/components/Header";
 import NotificationFeed from "@/components/NotificationFeed";
-import { NextPageContext } from "next";
-import { getSession } from "next-auth/react";
+import { GetServerSidePropsContext, NextPageContext } from "next";
+import { authOptions } from "@/auth";
+import { getServerSession } from "next-auth";
 
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getServerSession(context.req, context.res, authOptions);
 
   if (!session) {
     return {

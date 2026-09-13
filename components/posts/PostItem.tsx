@@ -83,7 +83,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data }) => {
               className="flex flex-row items-center text-neutral-500 gap-2 cursor-pointer transition hover:text-red-500"
               onClick={onLike}
             >
-              <LikeIcon size={20} color={hasLiked && 'red'} />
+              <LikeIcon size={20} color={hasLiked ? 'red' : ''} />
               <p>{data.likedIds.length || 0}</p>
             </div>
           </div>
