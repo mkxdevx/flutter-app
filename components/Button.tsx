@@ -1,11 +1,12 @@
 interface ButtonProps {
-  label: string;
+  label: string | React.ReactNode;
   secondary?: boolean;
   fullWidth?: boolean;
   large?: boolean;
   onClick?: () => void;
   disabled?: boolean;
   outline?: boolean;
+  className?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,6 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   disabled,
   outline,
+  className = "",
 }) => {
   return (
     <button
@@ -32,6 +34,7 @@ const Button: React.FC<ButtonProps> = ({
          ${secondary ? "bg-white text-black border-black" : "bg-sky-500 text-white border-sky-500"} 
          ${large ? "text-xl px-5 py-3" : "text-md px-4 py-2"} 
          ${outline ? "bg-transparent border-white text-white" : ""}
+         ${className}
          `}
     >
       {label}

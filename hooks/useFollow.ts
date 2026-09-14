@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import useCurrentUser from "./useCurrentUser";
 import useLoginModal from "./useLoginModal";
 import useUser from "./useUser";
@@ -8,6 +8,7 @@ import axios from "axios";
 const useFollow = (userId: string) => {
   const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
   const { mutate: mutateFetchedUser } = useUser(userId);
+  const [isFollowLoading, setIsFollowLoading] = useState(false);
   const loginModal = useLoginModal();
   const isFollowing = useMemo(() => {
     const list = currentUser?.followingIds || [];
@@ -21,8 +22,38 @@ const useFollow = (userId: string) => {
     }
 
     try {
-      let request;
+      setIsFollowLoading(true);
 
+      mutateCurrentUser((currentData: any) => {
+        if (!currentData) {
+          return currentData;
+        }
+
+        const currentFollowersCount = currentData.followersCount || 0;
+
+        return {
+          ...currentData,
+          followersCount: isFollowing
+            ? currentFollowersCount - 1
+            : currentFollowersCount + 1,
+        };
+      }, false);
+
+      mutateFetchedUser((currentData: any) => {
+        if (!currentData) {
+          return currentData;
+        }
+
+        const currentFollowingCount = currentData.followingIds || 0;
+
+        return {
+          ...currentData,
+          followingIds: isFollowing ? (currentData.followingIds || []).filter((id: string) => id !== userId) :
+          [...(currentData.followingIds || []), userId]
+        }
+      }, false);
+
+      let request;
       if (isFollowing) {
         request = () => axios.delete("/api/follow", { data: { userId } });
       } else {
@@ -33,9 +64,13 @@ const useFollow = (userId: string) => {
       mutateCurrentUser();
       mutateFetchedUser();
 
-      toast.success("Success");
+      toast.success(isFollowing ? "Unfollowed" : "Successfully followed");
     } catch (error) {
+      mutateCurrentUser();
+      mutateFetchedUser();
       toast.error("something went wrong");
+    } finally {
+      setIsFollowLoading(false);
     }
   }, [
     currentUser,
@@ -49,6 +84,7 @@ const useFollow = (userId: string) => {
   return {
     isFollowing,
     toggleFollow,
+    isFollowLoading,
   };
 };
 

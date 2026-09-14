@@ -6,6 +6,8 @@ import Button from "../Button";
 import { BiCalendar } from "react-icons/bi";
 import useEditModal from "@/hooks/useEditModal";
 import useFollow from "@/hooks/useFollow";
+import useLoginModal from "@/hooks/useLoginModal";
+import { FaSpinner } from "react-icons/fa";
 
 interface UserBioProps {
   userId: string;
@@ -15,7 +17,8 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
   const { data: currentUser } = useCurrentUser();
   const { data: fetchedUser } = useUser(userId);
   const editModal = useEditModal();
-  const { isFollowing, toggleFollow } = useFollow(userId);
+  const loginModal = useLoginModal();
+  const { isFollowing, isFollowLoading, toggleFollow } = useFollow(userId);
   const createdAt = useMemo(() => {
     if (!fetchedUser?.createdAt) {
       return null;
@@ -29,7 +32,24 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
         {currentUser?.id === userId ? (
           <Button secondary label="Edit" onClick={editModal.onOpen} />
         ) : (
-          <Button onClick={toggleFollow} label={isFollowing ? 'Unfollow' : 'Follow'} secondary={!isFollowing} outline={isFollowing} />
+          <Button
+            onClick={toggleFollow}
+            disabled={isFollowLoading}
+            secondary={!isFollowing}
+            outline={isFollowing}
+            className={`${isFollowLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+            label={
+              isFollowLoading ? (
+                <span className="flex items-center justify-center w-full h-full">
+                  <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                </span>
+              ) : isFollowing ? (
+                "Unfollow"
+              ) : (
+                "Follow"
+              )
+            }
+          />
         )}
       </div>
       <div className="mt-8 px-4">
