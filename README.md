@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Modern Twitter Clone
 
-## Getting Started
+A fast, responsive social media web application. I took a legacy tutorial setup and upgraded the entire ecosystem to modern web standards.
 
-First, run the development server:
+## 🚀 Live Demo
+[Not yet deployed]
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ Tech Stack
+* **Frontend:** Next.js (Pages Router) & React 19
+* **Styling:** Tailwind CSS v4 
+* **Database:** MongoDB via Prisma 6 (ORM)
+* **Authentication:** NextAuth / Auth.js v5
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 💪 Challenges I Overcame (Ecosystem Upgrade)
+Instead of sticking with old tutorial package versions, I updated the entire app to use modern packages. This required fixing several real-world compatibility issues:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* **Tailwind v4 Shift:** Migrated the app from a JS configuration file to a clean, modern CSS-First layout.
+* **Prisma 6 Stability:** Evaluated new package limits and locked our database engine at Prisma v6 to keep MongoDB collections running smoothly without version crashes.
+* **Auth.js Wrapper:** Updated the backend session handling to bridge old tutorial patterns with new token security steps.
+* **Smart Components:** Rewrote the user feed layout so that home page queries handle missing or optional IDs cleanly without breaking.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📦 How to Run Locally
+1. Clone the project: `git clone [your-repo-url]`
+2. Install files: `npm install --legacy-peer-deps`
+3. Add your environment keys to a `.map` or `.env` file (`DATABASE_URL`, `NEXTAUTH_SECRET`)
+4. Launch the local portal: `npm run dev`
