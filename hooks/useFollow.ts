@@ -23,12 +23,25 @@ const useFollow = (userId: string) => {
 
     try {
       setIsFollowLoading(true);
+      mutateFetchedUser((currentData: any) => {
+        if (!currentData) {
+          return currentData;
+        }
+
+        return {
+          ...currentData,
+          followingIds: isFollowing
+            ? (currentData.followingIds || []).filter(
+                (id: string) => id !== userId,
+              )
+            : [...(currentData.followingIds || []), userId],
+        };
+      }, false);
 
       mutateCurrentUser((currentData: any) => {
         if (!currentData) {
           return currentData;
         }
-
         const currentFollowersCount = currentData.followersCount || 0;
 
         return {
@@ -39,20 +52,6 @@ const useFollow = (userId: string) => {
         };
       }, false);
 
-      mutateFetchedUser((currentData: any) => {
-        if (!currentData) {
-          return currentData;
-        }
-
-        const currentFollowingCount = currentData.followingIds || 0;
-
-        return {
-          ...currentData,
-          followingIds: isFollowing ? (currentData.followingIds || []).filter((id: string) => id !== userId) :
-          [...(currentData.followingIds || []), userId]
-        }
-      }, false);
-
       let request;
       if (isFollowing) {
         request = () => axios.delete("/api/follow", { data: { userId } });
@@ -60,14 +59,13 @@ const useFollow = (userId: string) => {
         request = () => axios.post("/api/follow", { userId });
       }
       await request();
-
-      mutateCurrentUser();
       mutateFetchedUser();
+      mutateCurrentUser();
 
       toast.success(isFollowing ? "Unfollowed" : "Successfully followed");
     } catch (error) {
-      mutateCurrentUser();
       mutateFetchedUser();
+      mutateCurrentUser();
       toast.error("something went wrong");
     } finally {
       setIsFollowLoading(false);

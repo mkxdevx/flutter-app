@@ -6,13 +6,15 @@ import { useCallback, useMemo } from "react";
 import Avatar from "../Avatar";
 import { AiOutlineHeart, AiFillHeart, AiOutlineMessage } from "react-icons/ai";
 import useLike from "@/hooks/useLike";
+import { DiVim } from "react-icons/di";
 
 interface PostItemProps {
   userId?: string;
   data: Record<string, any>;
+  children?: React.ReactNode;
 }
 
-const PostItem: React.FC<PostItemProps> = ({ userId, data }) => {
+const PostItem: React.FC<PostItemProps> = ({ userId, data, children }) => {
   const router = useRouter();
   const loginModal = useLoginModal();
   const { data: currentUser } = useCurrentUser();
@@ -89,6 +91,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data }) => {
           </div>
         </div>
       </div>
+      {children && <div className="mt-2 pt-4 flex items-center justify-center">{children}</div> }
     </div>
   );
 };

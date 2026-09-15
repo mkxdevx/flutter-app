@@ -24,7 +24,7 @@ const CommentItem:React.FC<CommentItemProps> = ( { data }) => {
   }, [data?.createdAt]);
 
   return (
-    <div className="border-b=[1px] border-neutral-500 p-5 cursor-pointer hover:bg-neutral-500 transition">
+    <div className="border-b border-neutral-500 p-5 cursor-pointer hover:bg-neutral-500 transition">
       <div className="flex flex-row items-start gap-3">
       <Avatar userId={data.user.id} />
       <div>

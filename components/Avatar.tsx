@@ -7,9 +7,10 @@ interface AvatarProps {
   userId: string;
   isLarge?: boolean;
   hasBorder?: boolean;
+  isComment?: boolean
 }
 
-const Avatar: React.FC<AvatarProps> = ({ userId, isLarge, hasBorder }) => {
+const Avatar: React.FC<AvatarProps> = ({ userId, isLarge, hasBorder, isComment }) => {
   const { data: fetchedUser } = useUser(userId);
   const router = useRouter();
   const onClick = useCallback(
@@ -25,7 +26,7 @@ const Avatar: React.FC<AvatarProps> = ({ userId, isLarge, hasBorder }) => {
     <div
       className={`
         ${hasBorder && "border-4 border-black"} 
-        ${isLarge ? "h-32 w-32" : "h-12 w-12"} 
+        ${isLarge ? "h-32 w-32" : isComment ? "h-10 w-10" : "h-12 w-12"}
         rounded-full 
         hover:opacity-90 
         transition 

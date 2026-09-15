@@ -27,7 +27,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
     try {
       setIsLoading(true);
 
-      const url = isComment? `/api/comments?postId=${postId}` : '/api/posts'
+      const url = isComment ? `/api/comments?postId=${postId}` : "/api/posts";
       await axios.post(url, { body });
       toast.success("Tweet Created");
 
@@ -43,25 +43,35 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
   }, [body, mutatePosts, mutatePost, isComment, postId]);
 
   return (
-    <div className="border-b border-neutral-800 px-5 py-2">
+    <div className={`${isComment && !currentUser ? "border-none" : "border-b"} border-neutral-800 px-5 py-2 flex justify-center items-center`}>
       {currentUser ? (
         <div className="flex flex-row gap-4">
           <div>
-            <Avatar userId={currentUser?.id} />
+            <Avatar userId={currentUser?.id} isComment />
           </div>
-          <div className="w-full">
+          <div className={`w-full ${isComment && 'flex flex-row items-center justify-center'}`}>
             <textarea
               disabled={isLoading}
               onChange={(e) => setBody(e.target.value)}
               value={body}
-              className="disabled: opacity-80 peer resize-none mt-3 w-full bg-black ring-0 outline-none text-[20px] placeholder-neutral-500 text-white"
+              className={`disabled:opacity-80 resize-none mt-3 w-full bg-black ring-0 outline-none ${isComment ? "text-[15px]" : "text-[20px]"} placeholder-neutral-500 text-white`}
               placeholder={placeholder}
             ></textarea>
             <hr className="opacity-0 peer-focus:opacity-100 h-px w-full border-neutral-800 transition" />
-            <div className="mt-4 flex -flex-row justify-end">
-              <Button label="Tweet" disabled={isLoading || !body} onClick={onSubmit} />
-
+            <div className="mt-4 flex flex-row justify-end">
+              <Button
+                label="Tweet"
+                disabled={isLoading || !body}
+                onClick={onSubmit}
+                isComment
+              />
             </div>
+          </div>
+        </div>
+      ) : isComment ? (
+        <div className="bg-sky-500 rounded-2xl w-100 py-1">
+          <div className="text-white text-center" onClick={loginModal.onOpen}>
+            Login to reply
           </div>
         </div>
       ) : (
