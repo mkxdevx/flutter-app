@@ -42,49 +42,68 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
     }
   }, [body, mutatePosts, mutatePost, isComment, postId]);
 
-  return (
-    <div className={`${isComment && !currentUser ? "border-none" : "border-b"} border-neutral-800 px-5 py-2 flex justify-center items-center`}>
-      {currentUser ? (
-        <div className="flex flex-row gap-4">
-          <div>
-            <Avatar userId={currentUser?.id} isComment />
-          </div>
-          <div className={`w-full ${isComment && 'flex flex-row items-center justify-center'}`}>
+  let formContent;
+
+  if(currentUser) {
+    formContent = (
+      <div className="flex flex-row gap-4 w-full relative">
+        {isComment && (
+          <div className="absolute -top-4 w-0.5 h-4 bg-neutral-800" />
+        )}
+        <Avatar userId={currentUser.id} isComment />
+        {isComment && (
+          <div className="w-0.5 grow bg-neutral-800 mt-2 rounded-full" />
+        )}
+        <div className="flex-1 flex flex-col">
+          <div
+            className={`w-full ${isComment ? "flex flex-col md:flex-row md:items-center gap-3" : ""}`}
+          >
             <textarea
               disabled={isLoading}
               onChange={(e) => setBody(e.target.value)}
               value={body}
-              className={`disabled:opacity-80 resize-none mt-3 w-full bg-black ring-0 outline-none ${isComment ? "text-[15px]" : "text-[20px]"} placeholder-neutral-500 text-white`}
+              className={`w-full bg-black text-white resize-none outline-none ring-0 placeholder-neutral-500 ${isComment ? "text-[15px] pt-1" : "text-[20px] mt-3"}`}
               placeholder={placeholder}
-            ></textarea>
-            <hr className="opacity-0 peer-focus:opacity-100 h-px w-full border-neutral-800 transition" />
-            <div className="mt-4 flex flex-row justify-end">
+              rows={isComment ? 2 : 3}
+            />
+            <div className={`${isComment ? "mt-2 md:mt-0 flex justify-end" : "mt-4 flex justify-end"}`}>
               <Button
-                label="Tweet"
-                disabled={isLoading || !body}
+                label={isComment ? "Reply" : "Tweet"}
                 onClick={onSubmit}
-                isComment
+                disabled={isLoading || !body}
               />
             </div>
           </div>
         </div>
-      ) : isComment ? (
-        <div className="bg-sky-500 rounded-2xl w-100 py-1">
-          <div className="text-white text-center" onClick={loginModal.onOpen}>
-            Login to reply
-          </div>
+      </div>
+    );
+  } else if (isComment) {
+    formContent = (
+      <div className="w-full pl-14 pr-5 py-2">
+        <div
+          className="bg-neutral-900 border border-neutral-800 rounded-full py-2.5 px-4 cursor-pointer hover:bg-neutral-800/80 transition duration-200"
+          onClick={loginModal.onOpen}
+        >
+          <p className="text-sky-500 text-sm font-medium">Login to reply</p>
         </div>
-      ) : (
-        <div className="py-8">
-          <h1 className="text-white text-2xl text-center mb-4 font-bold">
-            Welcome to Flutter
-          </h1>
-          <div className="flex flex-row items-center justify-center gap-4">
-            <Button label="Login" onClick={loginModal.onOpen} />
-            <Button secondary label="Register" onClick={registerModal.onOpen} />
-          </div>
+      </div>
+    );
+  } else {
+    formContent = (
+      <div className="text-center py-8">
+        <h1 className="text-white text-2xl font-bold mb-4">Welcome to Flutter</h1>
+        <div className="flex flex-row gap-4 justify-center">
+          <Button label="Login" onClick={loginModal.onOpen} />
+          <Button label="Register" secondary onClick={registerModal.onOpen} />
         </div>
-      )}
+      </div>
+    )
+  }
+
+  return (
+    <div
+      className={`${isComment ? "border-b border-neutral-900 bg-black" : "border-b border-neutral-800"}`}>
+        {formContent}
     </div>
   );
 };
