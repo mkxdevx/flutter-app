@@ -16,7 +16,7 @@ export default async function handler(
     }
     res.status(200).json(auth.currentUser);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(400).end();
   }
 }

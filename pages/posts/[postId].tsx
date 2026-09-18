@@ -11,7 +11,6 @@ const postView = () => {
   const router = useRouter();
   const { postId } = router.query;
   const { data: fetchedPost, isLoading } = usePost(postId as string);
-  console.log("POST DATA FROM QUERY:", fetchedPost)
 
   if (isLoading || !fetchedPost) {
     return (

@@ -33,7 +33,7 @@ export default async function handler(req:NextApiRequest, res: NextApiResponse) 
 
     return res.status(200).json(notifications);
   } catch(error) {
-    console.log("NOTIFICATION HANDLER ERROR:", error);
+    console.error(error);
     return res.status(400).end();
   }
 }

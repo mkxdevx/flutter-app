@@ -19,6 +19,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data, children }) => {
   const loginModal = useLoginModal();
   const { data: currentUser } = useCurrentUser();
   const { hasLiked, toggleLike } = useLike({ postId: data.id, userId });
+   const LikeIcon = hasLiked ? AiFillHeart : AiOutlineHeart;
   const goToUser = useCallback(
     (event: any) => {
       event.stopPropagation();
@@ -50,7 +51,6 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data, children }) => {
     return formatDistanceToNowStrict(new Date(data.createdAt));
   }, [data?.createdAt]);
 
-  const LikeIcon = hasLiked ? AiFillHeart : AiOutlineHeart;
 
   return (
     <div

@@ -35,7 +35,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
       mutatePosts();
       mutatePost();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
@@ -66,7 +66,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
               placeholder={placeholder}
               rows={isComment ? 2 : 3}
             />
-            <div className={`${isComment ? "mt-2 md:mt-0 flex justify-end" : "mt-4 flex justify-end"}`}>
+            <div className={`${isComment ? "mt-2 md:mt-0 flex justify-end" : "mt-4 mb-3 flex justify-end"}`}>
               <Button
                 label={isComment ? "Reply" : "Tweet"}
                 onClick={onSubmit}
@@ -102,7 +102,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
 
   return (
     <div
-      className={`${isComment ? "border-b border-neutral-900 bg-black" : "border-b border-neutral-800"}`}>
+      className={`ml-4 mr-4 ${isComment ? "border-b border-neutral-900 bg-black" : "border-b border-neutral-800"}`}>
         {formContent}
     </div>
   );

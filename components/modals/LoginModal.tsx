@@ -28,8 +28,8 @@ const LoginModal = () => {
             });
       toast.success('Logged in');
       loginModal.onClose();
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error(error);
       toast.error('something went wrong');
     } finally {
       setIsLoading(false);

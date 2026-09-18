@@ -32,10 +32,9 @@ export default async function handler(
         },
       },
     });
-    console.log("THE POST IS FOUND:", post);
     return res.status(200).json(post);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(400).end();
   }
 }

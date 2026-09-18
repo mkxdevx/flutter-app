@@ -38,8 +38,8 @@ const RegisterModal = () => {
         password,
       });
       registerModal.onClose();
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error(error);
       toast.error("Something went wrong.");
     } finally {
       setIsLoading(false);

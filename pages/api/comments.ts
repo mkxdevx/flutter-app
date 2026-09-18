@@ -50,12 +50,12 @@ export default async function handler(
         });
       }
     } catch (error) {
-      console.log("LIKE NOTIFICATION ERROR:", error);
+    console.error(error);
     }
 
     return res.status(200).json(comment);
   } catch (error) {
-    console.log("COMMENT HANDLER ERROR:", error);
+    console.error(error);
     return res.status(400).end();
   }
 }

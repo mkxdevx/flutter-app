@@ -33,7 +33,7 @@ export default async function handler(
       followersCount,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(400).end();
   }
 }
