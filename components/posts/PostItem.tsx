@@ -6,7 +6,6 @@ import { useCallback, useMemo } from "react";
 import Avatar from "../Avatar";
 import { AiOutlineHeart, AiFillHeart, AiOutlineMessage } from "react-icons/ai";
 import useLike from "@/hooks/useLike";
-import { DiVim } from "react-icons/di";
 
 interface PostItemProps {
   userId?: string;

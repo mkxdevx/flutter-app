@@ -19,12 +19,12 @@ const NotificationFeed = () => {
     );
   }
 
-   const createdAt = useMemo(() => {
-      if (!fetchedNotifications?.createdAt) {
-        return null;
-      }
-      return formatDistanceToNowStrict(new Date(fetchedNotifications.createdAt));
-    }, [fetchedNotifications?.createdAt]);
+  //  const createdAt = useMemo(() => {
+  //     if (!fetchedNotifications?.createdAt) {
+  //       return null;
+  //     }
+  //       return formatDistanceToNowStrict(new Date(fetchedNotifications.createdAt));
+  //   }, [fetchedNotifications?.createdAt]);
 
   return (
     <div className="flex flex-col">
@@ -36,7 +36,7 @@ const NotificationFeed = () => {
           >
             <BsTwitter color="white" size={32} />
             <p className="text-white">{notification.body}</p>
-            <p>{createdAt}</p>
+            {/* <p>{createdAt}</p> */}
           </div>
         );
       })}
