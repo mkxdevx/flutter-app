@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import NotificationFeed from "@/components/NotificationFeed";
-import { GetServerSidePropsContext, NextPageContext } from "next";
+import { GetServerSidePropsContext} from "next";
 import { authOptions } from "@/auth";
 import { getServerSession } from "next-auth";
 

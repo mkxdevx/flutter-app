@@ -1,4 +1,3 @@
-import useCurrentUser from "@/hooks/useCurrentUser";
 import useLoginModal from "@/hooks/useLoginModal";
 import { formatDistanceToNowStrict } from "date-fns";
 import { useRouter } from "next/router";
@@ -11,12 +10,12 @@ interface PostItemProps {
   userId?: string;
   data: Record<string, any>;
   children?: React.ReactNode;
+  currentUser?: string;
 }
 
-const PostItem: React.FC<PostItemProps> = ({ userId, data, children }) => {
+const PostItem: React.FC<PostItemProps> = ({ userId, data, children, currentUser }) => {
   const router = useRouter();
   const loginModal = useLoginModal();
-  const { data: currentUser } = useCurrentUser();
   const { hasLiked, toggleLike } = useLike({ postId: data.id, userId });
    const LikeIcon = hasLiked ? AiFillHeart : AiOutlineHeart;
   const goToUser = useCallback(
@@ -57,7 +56,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data, children }) => {
       className="border-b border-neutral-800 p-5 cursor-pointer hover:bg-neutral-900 transition"
     >
       <div className="flex flex-row items-start gap-3">
-        <Avatar userId={data.user.id} />
+        <Avatar user={data.user} />
         <div>
           <div className="flex flex-row items-center gap-2">
             <p

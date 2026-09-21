@@ -7,18 +7,17 @@ import { BiCalendar } from "react-icons/bi";
 import useEditModal from "@/hooks/useEditModal";
 import useFollow from "@/hooks/useFollow";
 import useLoginModal from "@/hooks/useLoginModal";
-import { FaSpinner } from "react-icons/fa";
 
 interface UserBioProps {
-  userId: string;
+  isLoading: boolean;
+  fetchedUser: Record<string, any>;
+  currentUser: Record<string, any>;
 }
 
-const UserBio: React.FC<UserBioProps> = ({ userId }) => {
-  const { data: currentUser } = useCurrentUser();
-  const { data: fetchedUser } = useUser(userId);
+const UserBio: React.FC<UserBioProps> = ({ isLoading, fetchedUser, currentUser }) => {
   const editModal = useEditModal();
   const loginModal = useLoginModal();
-  const { isFollowing, isFollowLoading, toggleFollow } = useFollow(userId);
+  const { isFollowing, isFollowLoading, toggleFollow } = useFollow(fetchedUser.id);
   const createdAt = useMemo(() => {
     if (!fetchedUser?.createdAt) {
       return null;
@@ -29,7 +28,7 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
   return (
     <div className="border-b border-neutral-800 pb-4">
       <div className="flex justify-end p-2">
-        {currentUser?.id === userId ? (
+        {currentUser?.id === fetchedUser.id ? (
           <Button secondary label="Edit" onClick={editModal.onOpen} />
         ) : (
           <Button

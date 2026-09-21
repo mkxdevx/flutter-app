@@ -5,7 +5,6 @@ import Modal from "../Modal";
 import useRegisterModal from "@/hooks/useRegister";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
-import { CgSpinner } from "react-icons/cg";
 import { ClipLoader } from "react-spinners";
 
 const LoginModal = () => {

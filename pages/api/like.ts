@@ -20,25 +20,22 @@ export default async function handler(
 
     const post = await prisma.post.findUnique({
       where: {
-        id: postId,
+        id: postId
       },
     });
 
     if (!post) {
-      throw new Error("Invalid ID");
+      throw new Error("Post not found");
     }
 
     let updatedLikedIds = [...(post.likedIds || [])];
 
     if (req.method === "POST") {
-      updatedLikedIds.push(currentUser.id);
+      if(!updatedLikedIds.includes(currentUser.id)) {
+         updatedLikedIds.push(currentUser.id);
+      }
 
       try {
-        const post = await prisma.post.findUnique({
-          where: {
-            id: postId,
-          },
-        });
         if (post?.userId) {
           await prisma.notification.create({
             data: {
@@ -55,8 +52,8 @@ export default async function handler(
             },
           });
         }
-      } catch (error) {
-        console.error(error);
+      } catch (notificationError) {
+        console.error("Notification trigger failed:", notificationError);
       }
     }
 
@@ -66,7 +63,7 @@ export default async function handler(
       );
     }
 
-    const updatedPosts = await prisma.post.update({
+    const updatedPost = await prisma.post.update({
       where: {
         id: postId,
       },
@@ -75,7 +72,7 @@ export default async function handler(
       },
     });
 
-    return res.status(200).json(updatedPosts);
+    return res.status(200).json(updatedPost);
   } catch (error) {
     console.error(error);
     return res.status(400).end();

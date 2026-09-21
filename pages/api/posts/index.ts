@@ -12,7 +12,13 @@ export default async function handler(
 
   try {
     if (req.method === "POST") {
+
+      console.log("Step 1: post route hit, running serverAuth...")
+
       const { currentUser } = await serverAuth(req, res);
+
+      console.log("step 2: serverAuth completed safely! User found:", currentUser.id);
+
       const { body } = req.body;
       const post = await prisma.post.create({
         data: {
@@ -24,35 +30,21 @@ export default async function handler(
     }
     if (req.method === "GET") {
       const { userId } = req.query;
-      let posts;
-      if (userId && typeof userId === "string") {
-        posts = await prisma.post.findMany({
-          where: {
-            userId,
-          },
-          include: {
-            user: true,
-            comments: true,
-          },
-          orderBy: {
-            createdAt: "desc",
-          },
-        });
-      } else {
-        posts = await prisma.post.findMany({
-          include: {
-            user: true,
-            comments: true,
-          },
-          orderBy: {
-            createdAt: "desc",
-          },
-        });
-      }
+
+      const posts = await prisma.post.findMany({
+        where: userId && typeof userId === "string" ? { userId } : {},
+        include: {
+          user: true,
+          comments: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
       return res.status(200).json(posts);
     }
   } catch (error) {
     console.error(error);
-     return res.status(400).end();
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 }
