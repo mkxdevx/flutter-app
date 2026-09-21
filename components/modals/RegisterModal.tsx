@@ -6,6 +6,7 @@ import useLoginModal from "@/hooks/useLoginModal";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
+import { ClipLoader } from "react-spinners";
 
 const RegisterModal = () => {
   const loginModal = useLoginModal();
@@ -96,7 +97,7 @@ const RegisterModal = () => {
         disabled={isLoading}
         isOpen={registerModal.isOpen}
         title="Create an account"
-        actionLabel="Register"
+        actionLabel={isLoading ? <ClipLoader /> : "Sign in"}
         onClose={registerModal.onClose}
         onSubmit={onSubmit}
         body={bodyContent}

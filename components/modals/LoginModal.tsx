@@ -5,7 +5,8 @@ import Modal from "../Modal";
 import useRegisterModal from "@/hooks/useRegister";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
-import { mutate } from "swr";
+import { CgSpinner } from "react-icons/cg";
+import { ClipLoader } from "react-spinners";
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
@@ -77,7 +78,7 @@ const LoginModal = () => {
         disabled={isLoading}
         isOpen={loginModal.isOpen}
         title="Login"
-        actionLabel="Sign in"
+        actionLabel={isLoading ? (<ClipLoader />)  : "Sign in"}
         onClose={loginModal.onClose}
         onSubmit={onSubmit}
         body={bodyContent}

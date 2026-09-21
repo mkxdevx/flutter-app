@@ -12,9 +12,9 @@ const PostFeed: React.FC<PostFeedProps> = ({ userId }) => {
 
   if(isLoading) {
     return (
-      <div>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <TweetSkeleton key={index} />
+      <div className="divide-y divide-neutral-800">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <TweetSkeleton key={i} />
         ))}
       </div>
     )

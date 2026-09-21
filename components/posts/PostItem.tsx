@@ -90,7 +90,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data, children }) => {
           </div>
         </div>
       </div>
-      {children && <div className="mt-2 pt-4 flex items-center justify-center">{children}</div> }
+      {children}
     </div>
   );
 };

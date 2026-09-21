@@ -4,14 +4,14 @@ import { useRouter } from "next/router";
 import { useCallback } from "react";
 
 interface AvatarProps {
-  userId: string;
+  userId?: string;
   isLarge?: boolean;
   hasBorder?: boolean;
   isComment?: boolean
 }
 
 const Avatar: React.FC<AvatarProps> = ({ userId, isLarge, hasBorder, isComment }) => {
-  const { data: fetchedUser } = useUser(userId);
+  const { data: fetchedUser, isLoading } = useUser(userId);
   const router = useRouter();
   const onClick = useCallback(
     (event: any) => {
@@ -22,6 +22,15 @@ const Avatar: React.FC<AvatarProps> = ({ userId, isLarge, hasBorder, isComment }
     },
     [router, userId],
   );
+
+  if(isLoading) {
+    return (
+      <div
+        className={`bg-neutral-800 animate-pulse rounded-full border-4 border-black transition ${isLarge ? "h-32 w-32" : isComment ? "h-10 w-10" : "h-12 w-12"} `}
+      />
+    );
+  }
+
   return (
     <div
       className={`
