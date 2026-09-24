@@ -10,11 +10,11 @@ export default async function handler(
   }
 
   try {
-    const auth = await serverAuth(req, res);
-    if(!auth || !auth.currentUser) {
+    const { currentUser } = await serverAuth(req, res);
+    if(!currentUser) {
       return res.status(405).end();
     }
-    res.status(200).json(auth.currentUser);
+    res.status(200).json(currentUser);
   } catch (error) {
     console.error(error);
     return res.status(400).end();

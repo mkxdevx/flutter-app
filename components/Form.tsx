@@ -52,19 +52,25 @@ const Form: React.FC<FormProps> = ({
 
   if (currentUser) {
     formContent = (
-      <div className="flex flex-row gap-3 w-full relative">
-        <Avatar user={currentUser} isComment={isComment} />
-        <div className="flex-1 flex flex-col pt-1">
+      <div
+        className={`flex flex-row gap-3 w-full relative ${isComment ? " border border-neutral-800 rounded-full m-3 p-1" : "mt-5"}`}
+      >
+        <div>
+          <Avatar user={currentUser} isComment={isComment} />
+        </div>
+        <div
+          className={`flex-1 flex pt-1 ${isComment ? "flex-row" : "flex-col"}`}
+        >
           <textarea
             disabled={isLoading}
             onChange={(e) => setBody(e.target.value)}
             value={body}
-            className={`w-full text-white resize-none outline-none ring-0 placeholder-neutral-500 ${isComment ? "text-[15px] pt-1" : "text-[20px] mt-3"}`}
+            className={`w-full text-white resize-none outline-none ring-0 placeholder-neutral-500 ${isComment ? "text-[15px] pt-2" : "text-[20px] mt-3"}`}
             placeholder={placeholder}
             rows={isComment ? 1 : 3}
           />
           <div
-            className={`${isComment ? "mt-2 md:mt-0 flex justify-end" : "mt-4 mb-3 flex justify-end"}`}
+            className={`${isComment ? "justify-center" : "mt-4 mb-3 flex justify-end"}`}
           >
             <Button
               label={isComment ? "Reply" : "Tweet"}
@@ -102,7 +108,7 @@ const Form: React.FC<FormProps> = ({
 
   return (
     <div
-      className={`ml-4 mr-4 ${isComment ? "border-b border-neutral-900 bg-black" : "border-b border-neutral-800"}`}
+      className={`${isComment ? "pl-10 pr-10 border-b border-neutral-800 w-full bg-black" : "pl-4 pr-4 border-b border-neutral-800"}`}
     >
       {formContent}
     </div>

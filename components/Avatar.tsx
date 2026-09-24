@@ -17,7 +17,7 @@ const Avatar: React.FC<AvatarProps> = ({ user, isLarge, hasBorder, isComment, is
   if(isLoading || !user) {
     return (
       <div
-        className={`bg-neutral-800 animate-pulse rounded-full border-4 border-black transition ${isLarge ? "h-32 w-32" : isComment ? "h-10 w-10" : "h-12 w-12"} `}
+        className={`bg-neutral-800 animate-pulse rounded-full border-4 border-black transition ${isLarge ? "h-32 w-32" : isComment ? "h-8 w-8" : "h-12 w-12"} `}
       />
     );
   }

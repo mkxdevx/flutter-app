@@ -8,27 +8,28 @@ import usePosts from "@/hooks/usePosts";
 export default function Home() {
   const { data: posts = [], isLoading: isPostsLoading } = usePosts();
   const { data: currentUser, isLoading: isUserLoading } = useCurrentUser();
-  console.log("CURRENT USER DATA:", currentUser)
-
-  if(!currentUser || isUserLoading) {
-    return (
-      <div></div>
-    )
-  }
 
   return (
     <div className="min-h-screen border-x border-neutral-800 bg-black text-white">
       <Header label="Home" />
-      <Form placeholder="What's Happening?" currentUser={currentUser.id} isUserLoading={isUserLoading} />
-      {isPostsLoading ? (
-        <div className="divide-y divide-neutral-800">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <TweetSkeleton key={i} />
-          ))}
-        </div>
-      ) : (
-        <PostFeed posts={posts} isLoading={isPostsLoading} currentUser={currentUser.id} />
-      )}
+          <Form
+            placeholder="What's Happening?"
+            currentUser={currentUser?.id}
+            isUserLoading={isUserLoading}
+          />
+          {isPostsLoading ? (
+          <div className="divide-y divide-neutral-800">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <TweetSkeleton key={i} />
+            ))}
+          </div>
+          ) : (
+          <PostFeed
+            posts={posts}
+            isLoading={isPostsLoading}
+            currentUser={currentUser?.id}
+          />
+          )}
     </div>
   );
 }

@@ -20,7 +20,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   icon: Icon,
   onClick,
   auth,
-  alert,
+  alert
 }) => {
   const { data: currentUser } = useCurrentUser();
   const loginModal = useLoginModal();
