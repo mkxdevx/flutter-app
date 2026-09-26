@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/libs/prismadb";
+import { TbRulerMeasure } from "react-icons/tb";
 
 export default async function handler(
   req: NextApiRequest,
@@ -14,6 +15,13 @@ export default async function handler(
       orderBy: {
         createdAt: "desc",
       },
+      select: {
+        id: true,
+        name: true,
+        username: true,
+        profileImage: true,
+        createdAt: true,
+      }
     });
     return res.status(200).json(users);
   } catch (error) {

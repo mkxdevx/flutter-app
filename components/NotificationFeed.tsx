@@ -1,17 +1,27 @@
 import useCurrentUser from "@/hooks/useCurrentUser";
 import useNotifications from "@/hooks/useNotifications";
 import { formatDistanceToNowStrict } from "date-fns";
+import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
 import { BsTwitter } from "react-icons/bs";
+import { ClipLoader } from "react-spinners";
 
 const NotificationFeed = () => {
   const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
-  const { data: fetchedNotifications = [] } = useNotifications(currentUser?.id);
+  const { data: fetchedNotifications = [], isLoading } = useNotifications(
+    currentUser?.id,
+  );
   useEffect(() => {
     mutateCurrentUser();
   }, [mutateCurrentUser]);
 
-  if (fetchedNotifications.length === 0) {
+  if (isLoading) {
+    return (
+      <div className="mt-20 flex align-center justify-center">
+        <ClipLoader size={84} color="white" />
+      </div>
+    );
+  } else if (fetchedNotifications.length === 0) {
     return (
       <div className="text-neutral-500 text-center p-6 text-xl">
         No notifications

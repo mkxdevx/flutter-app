@@ -108,7 +108,7 @@ const Form: React.FC<FormProps> = ({
 
   return (
     <div
-      className={`${isComment ? "pl-10 pr-10 border-b border-neutral-800 w-full bg-black" : "pl-4 pr-4 border-b border-neutral-800"}`}
+      className={`${isComment ? "pl-10 pr-10 border-b border-neutral-800 w-full bg-black" : "mt-3 pl-4 pr-4 border-b border-neutral-800"}`}
     >
       {formContent}
     </div>

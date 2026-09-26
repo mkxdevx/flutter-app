@@ -17,13 +17,17 @@ interface UserBioProps {
 const UserBio: React.FC<UserBioProps> = ({ isLoading, fetchedUser, currentUser }) => {
   const editModal = useEditModal();
   const loginModal = useLoginModal();
-  const { isFollowing, isFollowLoading, toggleFollow } = useFollow(fetchedUser.id);
+  const { isFollowing, isFollowLoading, toggleFollow } = useFollow(fetchedUser?.id);
   const createdAt = useMemo(() => {
     if (!fetchedUser?.createdAt) {
       return null;
     }
     return format(new Date(fetchedUser.createdAt), "MMMM yyyy");
   }, [fetchedUser?.createdAt]);
+
+   if (!fetchedUser || isLoading) {
+     return <div>isLoading</div>;
+   }
 
   return (
     <div className="border-b border-neutral-800 pb-4">

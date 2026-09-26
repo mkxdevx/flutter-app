@@ -13,11 +13,7 @@ export default async function handler(
   try {
     if (req.method === "POST") {
 
-      console.log("Step 1: post route hit, running serverAuth...")
-
       const { currentUser } = await serverAuth(req, res);
-
-      console.log("step 2: serverAuth completed safely! User found:", currentUser.id);
 
       const { body } = req.body;
       const post = await prisma.post.create({

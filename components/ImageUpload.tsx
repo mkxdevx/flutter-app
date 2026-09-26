@@ -1,8 +1,9 @@
 import Image from "next/image";
-import { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { useState } from "react";
+import { CldUploadWidget } from "next-cloudinary";
+
 interface ImageUploadProps {
-  onChange: (base64: string) => void;
+  onChange: (url: string) => void;
   label: string;
   value?: string;
   disabled?: boolean;
@@ -14,56 +15,40 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   value,
   disabled,
 }) => {
-  const [base64, setBase64] = useState(value);
+  const [image, setImage] = useState(value);
 
-  const handleChange = useCallback(
-    (base64: string) => {
-      onChange(base64);
-    },
-    [onChange],
-  );
-  const handleDrop = useCallback(
-    (files: any) => {
-      const file = files[0];
-      const reader = new FileReader();
-      reader.onload = (event: any) => {
-        setBase64(event.target.result);
-        handleChange(event.target.result);
-      };
-      reader.readAsDataURL(file);
-    },
-    [handleChange],
-  );
-
-  const { getRootProps, getInputProps } = useDropzone({
-    maxFiles: 1,
-    onDrop: handleDrop,
-    disabled,
-    accept: {
-      "image/jpeg": [],
-      "image/png": [],
-    },
-  });
   return (
-    <div
-      {...getRootProps({
-        className:
-          "w-full p-4 text-white text-center border-2 border-dotted rounded-md border-neutral",
-      })}
+    <CldUploadWidget
+      uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
+      options={{
+        sources: ['local'],
+      }}
+      onSuccess={(result: any) => {
+        const url = result.info.secure_url;
+        setImage(url);
+        onChange(url);
+      }}
     >
-      <input {...getInputProps()} />
-      {
-        base64 ? (
-          <div className="flex items-center justify-center">
-            <Image src={base64} height='100' width='100' alt='Uploaded image'
-            />
+      {({ open }) => (
+        <div
+          onClick={() => !disabled && open()}
+          className="w-full p-4 text-white text-center border-2 border-dotted rounded-md border-neutral cursor-pointer"
+        >
+          {image ? (
+            <div className="flex items-center justify-center">
+              <Image
+                src={image}
+                height={100}
+                width={100}
+                alt="Uploaded image"
+              />
             </div>
-        ) : (
-          <p className="text-white">{label}</p>
-        )
-      }
-    </div>
+          ) : (
+            <p>{label}</p>
+          )}
+        </div>
+      )}
+    </CldUploadWidget>
   );
-};
-
+}
 export default ImageUpload;
