@@ -13,7 +13,6 @@ interface FormProps {
   isComment?: boolean;
   postId?: string;
   currentUser: Record<string, any>;
-  isUserLoading: boolean;
 }
 
 const Form: React.FC<FormProps> = ({
@@ -21,7 +20,6 @@ const Form: React.FC<FormProps> = ({
   isComment,
   postId,
   currentUser,
-  isUserLoading,
 }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();

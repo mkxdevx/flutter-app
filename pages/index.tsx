@@ -14,8 +14,7 @@ export default function Home() {
       <Header label="Home" />
           <Form
             placeholder="What's Happening?"
-            currentUser={currentUser?.id}
-            isUserLoading={isUserLoading}
+            currentUser={currentUser}
           />
           {isPostsLoading ? (
           <div className="divide-y divide-neutral-800">

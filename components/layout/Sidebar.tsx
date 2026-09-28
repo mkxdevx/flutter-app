@@ -52,7 +52,7 @@ const Sidebar = () => {
             />
           )}
 
-          <SidebarTweetButton />
+          <SidebarTweetButton currentUser={currentUser} />
         </div>
       </div>
     </div>

@@ -19,12 +19,12 @@ const EditModal = () => {
   const [bio, setBio] = useState("");
 
   useEffect(() => {
-    if(currentUser) {
-      setProfileImage(currentUser?.profileImage || '');
-    setCoverImage(currentUser?.coverImage || '');
-    setName(currentUser?.name || '');
-    setUsername(currentUser?.username || '');
-    setBio(currentUser?.bio || '');
+    if (currentUser) {
+      setProfileImage(currentUser?.profileImage || "");
+      setCoverImage(currentUser?.coverImage || "");
+      setName(currentUser?.name || "");
+      setUsername(currentUser?.username || "");
+      setBio(currentUser?.bio || "");
     }
   }, [currentUser]);
 
@@ -93,7 +93,7 @@ const EditModal = () => {
       />
     </div>
   );
-  if(!currentUser) {
+  if (!currentUser) {
     return null;
   }
   return (
