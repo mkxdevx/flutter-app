@@ -8,6 +8,7 @@ import { SessionProvider } from "next-auth/react";
 import EditModal from "@/components/modals/EditModal";
 import { SWRConfig } from "swr";
 import fetcher from "@/libs/fetcher";
+import TweetModal from "@/components/modals/TweetModal";
 
 export default function App({
   Component,
@@ -20,6 +21,7 @@ export default function App({
         <EditModal />
         <RegisterModal />
         <LoginModal />
+        <TweetModal />
         <Layout>
           <Component {...pageProps} />
         </Layout>

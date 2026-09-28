@@ -11,6 +11,7 @@ interface ModalProps {
   footer?: React.ReactElement;
   actionLabel?: string | React.ReactNode;
   disabled?: boolean;
+  size?: "default" | "small";
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -22,6 +23,7 @@ const Modal: React.FC<ModalProps> = ({
   footer,
   actionLabel,
   disabled,
+  size = "default",
 }) => {
   const handleClose = useCallback(() => {
     if (disabled) return;
@@ -39,8 +41,12 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <>
-      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800 bg-opacity-70">
-        <div className="relative w-full lg:w-3/6 my-6 mx-auto lg:max-w-3xl h-full lg:h-auto">
+      <div
+        className={`justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/50 ${size === "small" ? "backdrop-blur-xs" : " backdrop-blur-sm"} `}
+      >
+        <div
+          className={`relative w-full my-6 mx-auto ${size === "small" ? "max-w-lg h-auto" : "lg:w-3/6 lg:max-w-3xl h-full lg:h-auto"}`}
+        >
           {/* CONTENT */}
           <div className="h-full lg:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-black outline-none focus:outline-none">
             {/* HEADER */}
@@ -56,20 +62,20 @@ const Modal: React.FC<ModalProps> = ({
             {/* BODY */}
             <div className="relative p-10 flex-auto">{body}</div>
             {/* FOOTER */}
-            {(actionLabel && footer) && (
+            {actionLabel && footer && (
               <div className="flex flex-col gap-2 p-10">
-              {actionLabel && (
-                <Button
-                disabled={disabled}
-                label={actionLabel}
-                secondary
-                fullWidth
-                large
-                onClick={handleSubmit}
-              />
-              )}
-              {footer}
-            </div>
+                {actionLabel && (
+                  <Button
+                    disabled={disabled}
+                    label={actionLabel}
+                    secondary
+                    fullWidth
+                    large
+                    onClick={handleSubmit}
+                  />
+                )}
+                {footer}
+              </div>
             )}
           </div>
         </div>

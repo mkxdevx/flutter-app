@@ -2,17 +2,19 @@ import useLoginModal from "@/hooks/useLoginModal";
 import usePosts from "@/hooks/usePosts";
 import useRegisterModal from "@/hooks/useRegister";
 import axios from "axios";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 import toast from "react-hot-toast";
 import Button from "./Button";
 import Avatar from "./Avatar";
 import usePost from "@/hooks/usePost";
+import { ClipLoader } from "react-spinners";
 
 interface FormProps {
   placeholder: string;
   isComment?: boolean;
   postId?: string;
   currentUser: Record<string, any>;
+  autoFocus?: boolean;
 }
 
 const Form: React.FC<FormProps> = ({
@@ -20,6 +22,7 @@ const Form: React.FC<FormProps> = ({
   isComment,
   postId,
   currentUser,
+  autoFocus,
 }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
@@ -27,13 +30,21 @@ const Form: React.FC<FormProps> = ({
   const { mutate: mutatePost } = usePost(postId as string);
   const [body, setBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (autoFocus) {
+      textAreaRef.current?.focus();
+    }
+  }, [autoFocus]);
+
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
 
       const url = isComment ? `/api/comments?postId=${postId}` : "/api/posts";
       await axios.post(url, { body });
-      toast.success("Tweet Created");
+      toast.success(isComment ? "Reply Created" : "Tweet Created");
 
       setBody("");
       mutatePosts();
@@ -51,29 +62,37 @@ const Form: React.FC<FormProps> = ({
   if (currentUser) {
     formContent = (
       <div
-        className={`flex flex-row gap-3 w-full relative ${isComment ? " border border-neutral-800 rounded-full m-3 p-1" : "mt-5"}`}
+        className={`flex flex-row items-start gap-3 w-full relative ${isComment ? "border border-neutral-800 rounded-full m-3 py-1 px-2 focus-within:border-sky-500 transition-colors duration-200" : "mt-5"}`}
       >
-        <div>
-          <Avatar user={currentUser} isComment={isComment} />
-        </div>
+        <Avatar user={currentUser} isComment={isComment} />
         <div
           className={`flex-1 flex pt-1 ${isComment ? "flex-row" : "flex-col"}`}
         >
           <textarea
+            ref={textAreaRef}
             disabled={isLoading}
             onChange={(e) => setBody(e.target.value)}
             value={body}
-            className={`w-full text-white resize-none outline-none ring-0 placeholder-neutral-500 ${isComment ? "text-[15px] pt-2" : "text-[20px] mt-3"}`}
+            className={`w-full text-white resize-none outline-none ring-0 placeholder-neutral-500 ${isComment ? "text-[15px] pt-2" : "text-[20px]"}`}
             placeholder={placeholder}
             rows={isComment ? 1 : 3}
           />
           <div
-            className={`${isComment ? "justify-center" : "mt-4 mb-3 flex justify-end"}`}
+            className={`${isComment ? "mb-1" : "mt-4 mb-3 flex justify-end"}`}
           >
             <Button
-              label={isComment ? "Reply" : "Tweet"}
+              label={
+                isLoading ? (
+                  <ClipLoader size={18} />
+                ) : isComment ? (
+                  "Reply"
+                ) : (
+                  "Tweet"
+                )
+              }
               onClick={onSubmit}
               disabled={isLoading || !body}
+              isComment={isComment}
             />
           </div>
         </div>
@@ -106,7 +125,11 @@ const Form: React.FC<FormProps> = ({
 
   return (
     <div
-      className={`${isComment ? "pl-10 pr-10 border-b border-neutral-800 w-full bg-black" : "mt-3 pl-4 pr-4 border-b border-neutral-800"}`}
+      className={
+        isComment
+          ? "pl-10 pr-20 border-b border-neutral-700 w-full bg-black"
+          : "mt-3 pl-4 pr-4"
+      }
     >
       {formContent}
     </div>

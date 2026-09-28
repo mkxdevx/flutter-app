@@ -16,7 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div className="col-span-4 lg:col-span-3 border-x border-neutral-800 h-full overflow-y-auto">
             {children}
           </div>
-          <div className="hidden lg:block lg:col-span-1 h-full">
+          <div className="hidden lg:block lg:col-span-1 h-full w-full">
             <FollowBar />
           </div>
         </div>

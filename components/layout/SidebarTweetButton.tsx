@@ -1,20 +1,15 @@
 import { FaFeather } from "react-icons/fa";
 import useLoginModal from "@/hooks/useLoginModal";
 import useTweetModal from "@/hooks/useTweetModal";
+import { useCallback } from "react";
 
 const SidebarTweetButton = ({ currentUser }: Record<string, any>) => {
   const loginModal = useLoginModal();
   const tweetModal = useTweetModal();
 
-  const handleClick = () => {
-    if (!currentUser) {
-      loginModal.onOpen();
-      return;
-    }
-    
+  const handleClick = useCallback(() => {
     tweetModal.onOpen();
-   console.log("is modal open?", tweetModal.isOpen)
-  };
+  }, [tweetModal, loginModal]);
 
   return (
     <div onClick={handleClick}>

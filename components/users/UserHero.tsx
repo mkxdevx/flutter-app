@@ -26,7 +26,7 @@ const UserHero: React.FC<UserHeroProps> = ({ fetchedUser, isLoading }) => {
         />
       )}
       <div className="absolute -bottom-16 left-4">
-      <Avatar user={fetchedUser.id} isLarge hasBorder isLoading={isLoading} />
+      <Avatar user={fetchedUser} isLarge hasBorder isLoading={isLoading} />
       </div>
     </div>
   );
