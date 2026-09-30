@@ -7,13 +7,13 @@ const SidebarTweetButton = ({ currentUser }: Record<string, any>) => {
   const loginModal = useLoginModal();
   const tweetModal = useTweetModal();
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     if (!currentUser) {
       loginModal.onOpen();
       return;
     }
     tweetModal.onOpen();
-  }, [tweetModal, loginModal]);
+  };
 
   return (
     <div onClick={handleClick}>
