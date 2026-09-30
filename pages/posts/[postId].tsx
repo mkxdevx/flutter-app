@@ -39,7 +39,6 @@ const postView = () => {
             isComment
             placeholder="Share your thoughts"
             currentUser={currentUser}
-            isUserLoading={isCurrentUserLoading}
           />
 
           <CommentFeed comments={fetchedPost?.comments} />

@@ -10,7 +10,7 @@ import { useSWRConfig } from "swr";
 const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
   const { data: currentUser } = useCurrentUser();
   const { data: fetchedPost, mutate: mutateFetchedPost } = usePost(postId);
-  const { mutate } = useSWRConfig();
+  const { data: fetchedPosts, mutate: mutateFetchedPosts } = usePosts();
   const loginModal = useLoginModal();
   const hasLiked = useMemo(() => {
     const list = fetchedPost?.likedIds || [];
@@ -40,7 +40,25 @@ const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
       };
       mutateFetchedPost(updateSinglePostLikeIds, false);
 
-      const feedKey = userId ? `api/posts?userId=${userId}` : "api/posts";
+      const updatePostsLikeIds = (currentPosts: any[]) => {
+        if (!currentPosts) return currentPosts;
+
+        return currentPosts.map((post) => {
+          if (post.id !== postId) {
+            return post;
+          }
+
+          return {
+            ...post,
+            likedIds: hasLiked
+              ? (post.likedIds || []).filter(
+                  (id: string) => id !== currentUser.id,
+                )
+              : [...(post.likedIds || []), currentUser.id],
+          };
+        });
+      };
+      mutateFetchedPosts(updatePostsLikeIds, false);
 
       let request;
       if (hasLiked) {
@@ -50,16 +68,23 @@ const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
       }
 
       await request();
-      
-      mutate(feedKey);
+
       mutateFetchedPost();
+      mutateFetchedPosts();
 
       toast.success(hasLiked ? "Removed like" : "Successfully liked");
     } catch (error) {
       mutateFetchedPost();
       toast.error("Something went wrong");
     }
-  }, [currentUser, hasLiked, postId, mutateFetchedPost, mutate, loginModal]);
+  }, [
+    currentUser,
+    hasLiked,
+    postId,
+    mutateFetchedPost,
+    mutateFetchedPosts,
+    loginModal,
+  ]);
 
   return { hasLiked, toggleLike };
 };

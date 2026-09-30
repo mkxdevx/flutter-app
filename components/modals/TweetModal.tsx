@@ -8,7 +8,7 @@ const TweetModal = () => {
   const { data: currentUser, isLoading } = useCurrentUser();
   const bodyContent = (
     <div
-      className="border rounded-xl p-4 -mt-6 focus-within:border-sky-500 transition-colors duration-200"
+      className='rounded-xl p-4 focus-within:border-sky-500 transition-colors duration-200 border -mt-6'
     >
       <Form
         placeholder="What's happening"
@@ -17,6 +17,7 @@ const TweetModal = () => {
       />
     </div>
   );
+
   return (
     <Modal
     disabled={isLoading}

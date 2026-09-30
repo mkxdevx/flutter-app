@@ -25,14 +25,11 @@ const UserBio: React.FC<UserBioProps> = ({ isLoading, fetchedUser, currentUser }
     return format(new Date(fetchedUser.createdAt), "MMMM yyyy");
   }, [fetchedUser?.createdAt]);
 
-   if (!fetchedUser || isLoading) {
-     return <div>isLoading</div>;
-   }
 
   return (
     <div className="border-b border-neutral-800 pb-4">
       <div className="flex justify-end p-2">
-        {currentUser?.id === fetchedUser.id ? (
+        {currentUser?.id === fetchedUser?.id ? (
           <Button secondary label="Edit" onClick={editModal.onOpen} />
         ) : (
           <Button

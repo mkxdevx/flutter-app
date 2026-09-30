@@ -34,6 +34,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data, currentUser }) => {
       event.stopPropagation();
       if (!currentUser) {
         loginModal.onOpen();
+        return;
       }
 
       toggleLike();

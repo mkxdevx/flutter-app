@@ -62,7 +62,7 @@ const Form: React.FC<FormProps> = ({
   if (currentUser) {
     formContent = (
       <div
-        className={`flex flex-row items-start gap-3 w-full relative ${isComment ? "border border-neutral-800 rounded-full m-3 py-1 px-2 focus-within:border-sky-500 transition-colors duration-200" : "mt-5"}`}
+        className={`flex flex-row items-start gap-3 w-full relative ${isComment ? "border border-neutral-800 rounded-full m-3 py-1 px-2 focus-within:border-sky-500 transition-colors duration-200 md:max-w-125" : "mt-5"}`}
       >
         <Avatar user={currentUser} isComment={isComment} />
         <div
@@ -125,11 +125,11 @@ const Form: React.FC<FormProps> = ({
 
   return (
     <div
-      className={
-        isComment
-          ? "pl-10 pr-20 border-b border-neutral-700 w-full bg-black"
-          : "mt-3 pl-4 pr-4"
-      }
+      className={`mt-3
+        ${isComment
+          ? "pl-15 pr-20 border-y border-neutral-700 w-full bg-black"
+          : "pl-4 pr-4"}
+      `}
     >
       {formContent}
     </div>
