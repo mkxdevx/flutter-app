@@ -205,7 +205,330 @@ const users = [
   },
 ];
 
-async function main() {
+const postData = [
+  {
+    username: "alexjohnson",
+    posts: [
+      {
+        body: "Having a pretty good day!",
+        likedBy: ["mayawilliams", "jordansmith"],
+      },
+      {
+        body: "Can't believe how fast this week is going.",
+        likedBy: ["sofiamartinez", "chrisbrown"],
+      },
+    ],
+  },
+  {
+    username: "mayawilliams",
+    posts: [
+      {
+        body: "Coffee and music make everything better.",
+        likedBy: ["alexjohnson", "emmadavis", "oliviataylor"],
+      },
+      {
+        body: "Found a new song I can't stop listening to.",
+        likedBy: ["sofiamartinez", "alexjohnson"],
+      },
+    ],
+  },
+  {
+    username: "jordansmith",
+    posts: [
+      {
+        body: "Building something new today. Can't wait to share it!",
+        likedBy: ["liamanderson", "chrisbrown"],
+      },
+      {
+        body: "Sometimes the best ideas come when you least expect them.",
+        likedBy: ["alexjohnson", "mayawilliams", "ethanjackson"],
+      },
+    ],
+  },
+  {
+    username: "sofiamartinez",
+    posts: [
+      {
+        body: "Already planning my next adventure.",
+        likedBy: ["mayawilliams", "avathomas"],
+      },
+      {
+        body: "There's nothing better than discovering a new place.",
+        likedBy: ["alexjohnson", "masonharris", "jamesmartinez"],
+      },
+    ],
+  },
+  {
+    username: "chrisbrown",
+    posts: [
+      {
+        body: "Learning something new every day.",
+        likedBy: ["jordansmith", "liamanderson"],
+      },
+      {
+        body: "Finally finished a project I've been working on for weeks.",
+        likedBy: ["alexjohnson", "ethanjackson", "benjaminclark"],
+      },
+    ],
+  },
+  {
+    username: "emmadavis",
+    posts: [
+      {
+        body: "Today was one of those days that just makes you smile.",
+        likedBy: ["mayawilliams", "oliviataylor"],
+      },
+      {
+        body: "Making memories is what life is all about.",
+        likedBy: ["sofiamartinez", "harperrobinson", "charlottelewis"],
+      },
+    ],
+  },
+  {
+    username: "noahwilson",
+    posts: [
+      {
+        body: "What a game! That was way too close.",
+        likedBy: ["liamanderson", "ethanjackson"],
+      },
+      {
+        body: "Nothing beats a good weekend with friends.",
+        likedBy: ["alexjohnson", "jamesmartinez", "masonharris"],
+      },
+    ],
+  },
+  {
+    username: "oliviataylor",
+    posts: [
+      {
+        body: "Feeling inspired today. Time to create something!",
+        likedBy: ["emmadavis", "harperrobinson"],
+      },
+      {
+        body: "A little creativity can completely change your perspective.",
+        likedBy: ["mayawilliams", "isabellawhite", "charlottelewis"],
+      },
+    ],
+  },
+  {
+    username: "liamanderson",
+    posts: [
+      {
+        body: "Finally beat that level I've been stuck on forever.",
+        likedBy: ["noahwilson", "chrisbrown"],
+      },
+      {
+        body: "Sometimes gaming is exactly what you need after a long day.",
+        likedBy: ["jordansmith", "ethanjackson"],
+      },
+    ],
+  },
+  {
+    username: "avathomas",
+    posts: [
+      {
+        body: "It's the little things that make a day special.",
+        likedBy: ["sofiamartinez", "emmadavis"],
+      },
+      {
+        body: "Taking a moment to appreciate where I am right now.",
+        likedBy: ["isabellawhite", "charlottelewis", "harperrobinson"],
+      },
+    ],
+  },
+  {
+    username: "ethanjackson",
+    posts: [
+      {
+        body: "Trying to make today a productive one.",
+        likedBy: ["chrisbrown", "jordansmith"],
+      },
+      {
+        body: "There's always something new to learn.",
+        likedBy: ["liamanderson", "benjaminclark", "alexjohnson"],
+      },
+      {
+        body: "Small progress is still progress.",
+        likedBy: ["jamesmartinez", "masonharris"],
+      },
+    ],
+  },
+  {
+    username: "isabellawhite",
+    posts: [
+      {
+        body: "Starting a new book tonight.",
+        likedBy: ["avathomas", "oliviataylor"],
+      },
+      {
+        body: "Sometimes a quiet night with a good book is all you need.",
+        likedBy: ["emmadavis", "charlottelewis", "harperrobinson"],
+      },
+      {
+        body: "Just finished a book that I couldn't put down.",
+        likedBy: ["mayawilliams", "sofiamartinez"],
+      },
+    ],
+  },
+  {
+    username: "masonharris",
+    posts: [
+      {
+        body: "The view from up here was completely worth the hike.",
+        likedBy: ["sofiamartinez", "jamesmartinez"],
+      },
+      {
+        body: "Already thinking about where to go next.",
+        likedBy: ["avathomas", "charlottelewis", "alexjohnson"],
+      },
+      {
+        body: "Nothing like getting outside and exploring.",
+        likedBy: ["noahwilson", "ethanjackson"],
+      },
+    ],
+  },
+  {
+    username: "sophiamartin",
+    posts: [
+      {
+        body: "Good energy only today.",
+        likedBy: ["ameliagarcia", "harperrobinson"],
+      },
+      {
+        body: "Sometimes you just have to enjoy the moment.",
+        likedBy: ["mayawilliams", "emmadavis", "avathomas"],
+      },
+      {
+        body: "Today is going to be a good day.",
+        likedBy: ["alexjohnson", "charlottelewis"],
+      },
+    ],
+  },
+  {
+    username: "lucasthompson",
+    posts: [
+      {
+        body: "There's always something interesting happening on the road.",
+        likedBy: ["masonharris", "jamesmartinez"],
+      },
+      {
+        body: "Found a new place to explore this weekend.",
+        likedBy: ["sofiamartinez", "ameliagarcia", "charlottelewis"],
+      },
+      {
+        body: "Sometimes you just need to get out and drive.",
+        likedBy: ["noahwilson", "benjaminclark"],
+      },
+    ],
+  },
+  {
+    username: "ameliagarcia",
+    posts: [
+      {
+        body: "Chasing goals and enjoying the journey.",
+        likedBy: ["sophiamartin", "harperrobinson"],
+      },
+      {
+        body: "One step closer to where I want to be.",
+        likedBy: ["emmadavis", "charlottelewis", "alexjohnson"],
+      },
+      {
+        body: "Really proud of how far I've come.",
+        likedBy: ["mayawilliams", "isabellawhite"],
+      },
+    ],
+  },
+  {
+    username: "jamesmartinez",
+    posts: [
+      {
+        body: "Always down for a good conversation.",
+        likedBy: ["masonharris", "lucasthompson"],
+      },
+      {
+        body: "Good conversations can turn into great friendships.",
+        likedBy: ["alexjohnson", "chrisbrown", "noahwilson"],
+      },
+      {
+        body: "Nothing better than catching up with old friends.",
+        likedBy: ["emmadavis", "harperrobinson"],
+      },
+    ],
+  },
+  {
+    username: "harperrobinson",
+    posts: [
+      {
+        body: "Art has a way of saying things words can't.",
+        likedBy: ["oliviataylor", "isabellawhite"],
+      },
+      {
+        body: "Listening to music while working always helps me focus.",
+        likedBy: ["mayawilliams", "emmadavis", "charlottelewis"],
+      },
+      {
+        body: "Looking for some new creative inspiration.",
+        likedBy: ["sophiamartin", "ameliagarcia"],
+      },
+    ],
+  },
+  {
+    username: "benjaminclark",
+    posts: [
+      {
+        body: "Building something cool today.",
+        likedBy: ["jordansmith", "liamanderson"],
+      },
+      {
+        body: "There's always another project to work on.",
+        likedBy: ["chrisbrown", "ethanjackson", "lucasthompson"],
+      },
+      {
+        body: "Finally got everything working the way I wanted.",
+        likedBy: ["alexjohnson", "jamesmartinez"],
+      },
+    ],
+  },
+  {
+    username: "charlottelewis",
+    posts: [
+      {
+        body: "Taking life one day at a time.",
+        likedBy: ["emmadavis", "avathomas"],
+      },
+      {
+        body: "Today was definitely one for the memories.",
+        likedBy: ["harperrobinson", "sophiamartin", "ameliagarcia"],
+      },
+      {
+        body: "Sometimes the simplest days are the best ones.",
+        likedBy: ["isabellawhite", "mayawilliams"],
+      },
+    ],
+  },
+];
+
+async function deleteTestData() {
+  // delete my test posts
+  await prisma.post.deleteMany({
+    where: {
+      user: {
+        username: "mikayla123",
+      },
+    },
+  });
+
+  // delete test account
+  await prisma.user.delete({
+    where: {
+      username: "JD",
+    },
+  });
+  console.log("Test data deleted");
+}
+
+// Create users
+async function createUsers() {
   for (const user of users) {
     await prisma.user.upsert({
       where: {
@@ -222,6 +545,59 @@ async function main() {
   console.log("20 users created!");
 }
 
+async function createPosts() {
+  // create 50 posts
+
+  // find all users
+  const users = await prisma.user.findMany();
+
+  // loop through users w/ postData
+  for (const userData of postData) {
+    const databaseUser = users.find(
+      (dbUser) => dbUser.username === userData.username,
+    );
+
+    if (!databaseUser) {
+      throw new Error(`User ${userData.username} not found`);
+    }
+
+    for (const post of userData.posts) {
+      const likedIds = post.likedBy.map((username) => {
+        const user = users.find((user) => user.username === username);
+
+        if (!user) {
+          throw new Error(`User ${username} not found`);
+        }
+        return user.id;
+      });
+
+      await prisma.post.create({
+        data: {
+          body: post.body,
+          userId: databaseUser.id,
+          likedIds,
+        },
+      });
+    }
+  }
+  console.log("50 posts created!");
+}
+
+async function createFollows() {
+  // make users follow each other
+}
+
+
+async function createComments() {
+  // create comments
+}
+
+async function main() {
+  // await deleteTestData();
+  // await createUsers();
+  await createPosts();
+}
+
 main()
   .catch((error) => {
     console.error(error);
@@ -230,3 +606,11 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
+// Delete my test posts
+
+// Get users from database
+
+// Create posts
+
+// Create comments
