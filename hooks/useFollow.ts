@@ -14,6 +14,7 @@ const useFollow = (userId: string) => {
     const list = currentUser?.followingIds || [];
 
     return list.includes(userId);
+
   }, [userId, currentUser?.followingIds]);
 
   const toggleFollow = useCallback(async () => {
@@ -23,7 +24,7 @@ const useFollow = (userId: string) => {
 
     try {
       setIsFollowLoading(true);
-      mutateFetchedUser((currentData: any) => {
+      mutateCurrentUser((currentData: any) => {
         if (!currentData) {
           return currentData;
         }
@@ -38,7 +39,7 @@ const useFollow = (userId: string) => {
         };
       }, false);
 
-      mutateCurrentUser((currentData: any) => {
+      mutateFetchedUser((currentData: any) => {
         if (!currentData) {
           return currentData;
         }

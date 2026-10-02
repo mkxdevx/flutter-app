@@ -16,17 +16,7 @@ export default async function handler(
       throw new Error("Invalid ID");
     }
 
-    const user = await prisma?.user.findUnique({
-      where: {
-        id: userId,
-      },
-    });
-
-    if (!user) {
-      throw new Error("Invalid ID");
-    }
-
-    let updatedFollowingIds = [...(user.followingIds || [])];
+    let updatedFollowingIds = [...(currentUser.followingIds || [])];
 
     if (req.method === "POST") {
       updatedFollowingIds.push(userId);
@@ -54,7 +44,7 @@ export default async function handler(
 
     if (req.method === "DELETE") {
       updatedFollowingIds = updatedFollowingIds.filter(
-        (followingIds) => followingIds !== userId,
+        (followingIds) => followingIds !== userId
       );
     }
 
