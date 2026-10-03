@@ -7,8 +7,8 @@ interface AvatarProps {
   user?: Record<string, any>;
   isLarge?: boolean;
   hasBorder?: boolean;
-  isComment?: boolean
-  isLoading?: boolean
+  isComment?: boolean;
+  isLoading?: boolean;
 }
 
 const Avatar: React.FC<AvatarProps> = ({ user, isLarge, hasBorder, isComment, isLoading }) => {
