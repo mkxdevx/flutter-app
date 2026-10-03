@@ -1050,7 +1050,7 @@ async function main() {
   // await createUsers();
   // await createPosts();
   // await createFollows();
-  await createComments();
+  // await createComments();
 }
 
 main()
