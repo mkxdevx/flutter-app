@@ -7,7 +7,7 @@ import usePosts from "@/hooks/usePosts";
 
 export default function Home() {
   const { data: posts = [], isLoading: isPostsLoading } = usePosts();
-  const { data: currentUser, isLoading: isUserLoading } = useCurrentUser();
+  const { data: currentUser } = useCurrentUser();
 
   return (
     <div className="min-h-screen border-x border-neutral-800 bg-black text-white">

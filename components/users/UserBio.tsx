@@ -7,6 +7,7 @@ import { BiCalendar } from "react-icons/bi";
 import useEditModal from "@/hooks/useEditModal";
 import useFollow from "@/hooks/useFollow";
 import useLoginModal from "@/hooks/useLoginModal";
+import UserBioSkeleton from "../UserBioSkeleton";
 
 interface UserBioProps {
   isLoading: boolean;
@@ -14,10 +15,16 @@ interface UserBioProps {
   currentUser: Record<string, any>;
 }
 
-const UserBio: React.FC<UserBioProps> = ({ isLoading, fetchedUser, currentUser }) => {
+const UserBio: React.FC<UserBioProps> = ({
+  isLoading,
+  fetchedUser,
+  currentUser,
+}) => {
   const editModal = useEditModal();
   const loginModal = useLoginModal();
-  const { isFollowing, isFollowLoading, toggleFollow } = useFollow(fetchedUser?.id);
+  const { isFollowing, isFollowLoading, toggleFollow } = useFollow(
+    fetchedUser?.id,
+  );
   const createdAt = useMemo(() => {
     if (!fetchedUser?.createdAt) {
       return null;
@@ -25,6 +32,9 @@ const UserBio: React.FC<UserBioProps> = ({ isLoading, fetchedUser, currentUser }
     return format(new Date(fetchedUser.createdAt), "MMMM yyyy");
   }, [fetchedUser?.createdAt]);
 
+  if (isLoading || !fetchedUser) {
+    return <UserBioSkeleton />;
+  }
 
   return (
     <div className="border-b border-neutral-800 pb-4">

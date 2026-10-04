@@ -9,14 +9,10 @@ interface UserHeroProps {
 
 const UserHero: React.FC<UserHeroProps> = ({ fetchedUser, isLoading }) => {
 
-  if(isLoading || !fetchedUser) {
-    return (
-      <div className="bg-neutral-800 h-44 w-full animate-pulse relative" />
-    )
-  }
-
   return (
-    <div className="bg-neutral-700 h-44 relative">
+    <div
+      className={`h-44 relative ${isLoading ? "bg-neutral-800 animate-pulse" : ""}`}
+    >
       {fetchedUser?.coverImage && (
         <Image
           src={fetchedUser.coverImage}
@@ -25,8 +21,8 @@ const UserHero: React.FC<UserHeroProps> = ({ fetchedUser, isLoading }) => {
           style={{ objectFit: "cover" }}
         />
       )}
-      <div className="absolute -bottom-16 left-4">
-      <Avatar user={fetchedUser} isLarge hasBorder isLoading={isLoading} />
+      <div className={`absolute -bottom-16 left-4 ${isLoading? "bg-neutral-800 rounded-full" : ""}`}>
+        <Avatar user={fetchedUser} isLarge hasBorder isLoading={isLoading} />
       </div>
     </div>
   );

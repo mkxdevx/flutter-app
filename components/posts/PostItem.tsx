@@ -10,9 +10,10 @@ interface PostItemProps {
   userId?: string;
   data: Record<string, any>;
   currentUser?: string;
+  isLoading: boolean;
 }
 
-const PostItem: React.FC<PostItemProps> = ({ userId, data, currentUser }) => {
+const PostItem: React.FC<PostItemProps> = ({ userId, data, currentUser, isLoading }) => {
   const router = useRouter();
   const loginModal = useLoginModal();
   const { hasLiked, toggleLike } = useLike({ postId: data.id, userId });
@@ -56,7 +57,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data, currentUser }) => {
       className="border-t border-neutral-800 p-5 cursor-pointer hover:bg-neutral-900 transition "
     >
       <div className="flex flex-row items-start gap-3">
-        <Avatar user={data.user} />
+        <Avatar user={data.user} isLoading={isLoading} />
         <div>
           <div className="flex flex-row items-center gap-2">
             <p

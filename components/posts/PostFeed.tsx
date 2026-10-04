@@ -9,13 +9,13 @@ interface PostFeedProps {
   currentUser: string;
 }
 
-const PostFeed: React.FC<PostFeedProps> = ({ userId, posts = [], currentUser}) => {
+const PostFeed: React.FC<PostFeedProps> = ({ userId, posts = [], currentUser, isLoading}) => {
 
   return (
     <>
       {posts &&
         posts.map((post: Record<string, any>) => {
-          return <PostItem userId={userId} key={post.id} data={post} currentUser={currentUser} />;
+          return <PostItem userId={userId} key={post.id} data={post} currentUser={currentUser} isLoading={isLoading} />;
         })}
     </>
   );
