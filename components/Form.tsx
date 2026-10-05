@@ -105,7 +105,7 @@ const Form: React.FC<FormProps> = ({
           className="bg-neutral-900 border border-neutral-800 rounded-full py-2.5 px-4 cursor-pointer hover:bg-neutral-800/80 transition duration-200"
           onClick={loginModal.onOpen}
         >
-          <p className="text-sky-500 text-sm font-medium">Login to reply</p>
+          <p className="text-sky-500 text-sm font-medium text-center">Login to reply</p>
         </div>
       </div>
     );
