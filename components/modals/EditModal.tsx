@@ -18,14 +18,15 @@ const EditModal = () => {
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
 
+  if (!currentUser) {
+    return null;
+  }
   useEffect(() => {
-    if (currentUser) {
       setProfileImage(currentUser?.profileImage || "");
       setCoverImage(currentUser?.coverImage || "");
       setName(currentUser?.name || "");
       setUsername(currentUser?.username || "");
       setBio(currentUser?.bio || "");
-    }
   }, [currentUser]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -93,9 +94,6 @@ const EditModal = () => {
       />
     </div>
   );
-  if (!currentUser) {
-    return null;
-  }
   return (
     <Modal
       disabled={isLoading}
