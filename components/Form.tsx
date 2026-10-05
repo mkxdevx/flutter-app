@@ -8,6 +8,7 @@ import Button from "./Button";
 import Avatar from "./Avatar";
 import usePost from "@/hooks/usePost";
 import { ClipLoader } from "react-spinners";
+import WelcomeBanner from "./WelcomeBanner";
 
 interface FormProps {
   placeholder: string;
@@ -57,10 +58,20 @@ const Form: React.FC<FormProps> = ({
     }
   }, [body, mutatePosts, mutatePost, isComment, postId]);
 
-  let formContent;
+  if (!currentUser) {
+    return <WelcomeBanner isComment={isComment} />;
+  }
 
-  if (currentUser) {
-    formContent = (
+  return (
+    <div
+      className={`mt-3
+        ${
+          isComment
+            ? "pl-15 pr-20 border-y border-neutral-700 w-full bg-black"
+            : "pl-4 pr-4"
+        }
+      `}
+    >
       <div
         className={`flex flex-row items-start gap-3 w-full relative ${isComment ? "border border-neutral-800 rounded-full m-3 py-1 px-2 focus-within:border-sky-500 transition-colors duration-200 " : "mt-5"}`}
       >
@@ -97,41 +108,6 @@ const Form: React.FC<FormProps> = ({
           </div>
         </div>
       </div>
-    );
-  } else if (isComment) {
-    formContent = (
-      <div className="w-full pl-14 pr-5 py-2">
-        <div
-          className="bg-neutral-900 border border-neutral-800 rounded-full py-2.5 px-4 cursor-pointer hover:bg-neutral-800/80 transition duration-200"
-          onClick={loginModal.onOpen}
-        >
-          <p className="text-sky-500 text-sm font-medium text-center">Login to reply</p>
-        </div>
-      </div>
-    );
-  } else {
-    formContent = (
-      <div className="text-center py-8">
-        <h1 className="text-white text-2xl font-bold mb-4">
-          Welcome to Flutter
-        </h1>
-        <div className="flex flex-row gap-4 justify-center">
-          <Button label="Login" onClick={loginModal.onOpen} />
-          <Button label="Register" secondary onClick={registerModal.onOpen} />
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className={`mt-3
-        ${isComment
-          ? "pl-15 pr-20 border-y border-neutral-700 w-full bg-black"
-          : "pl-4 pr-4"}
-      `}
-    >
-      {formContent}
     </div>
   );
 };
