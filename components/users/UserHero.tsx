@@ -11,7 +11,7 @@ const UserHero: React.FC<UserHeroProps> = ({ fetchedUser, isLoading }) => {
 
   return (
     <div
-      className={`h-44 relative ${isLoading ? "bg-neutral-800 animate-pulse" : ""}`}
+      className={`h-44 relative ${isLoading ? "bg-neutral-800 animate-pulse" : "bg-neutral-700"}`}
     >
       {fetchedUser?.coverImage && (
         <Image
