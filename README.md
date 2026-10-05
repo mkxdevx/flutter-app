@@ -30,6 +30,16 @@ A fast, responsive social media web application. I took a legacy tutorial setup 
 * **Loading States & Asynchronous Data:** Built loading and fallback states to handle data while requests are loading or unavailable.
 * **Database Seeding & Relationships:** Created and injected seed data while connecting users to posts, comments, likes, and following relationships using Prisma and MongoDB.
 
+## Future Improvements 
+- Search engine
+- Light/dark mode
+- Retweets
+- Bookmarks
+- Personalized feed
+- Delete/edit for post owners
+- Reply threads
+- Following feed
+
 
 ## 📦 How to Run Locally
 1. Clone the project: `git clone [your-repo-url]`

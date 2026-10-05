@@ -13,7 +13,7 @@ const postView = () => {
   const { data: fetchedPost, isLoading: isPostLoading } = usePost(
     postId as string,
   );
-  const { data: currentUser, isLoading: isCurrentUserLoading } =
+  const { data: currentUser } =
     useCurrentUser();
 
   return (
@@ -33,7 +33,7 @@ const postView = () => {
         </>
       ) : (
         <>
-          <PostItem data={fetchedPost} userId={fetchedPost.id} />
+          <PostItem data={fetchedPost} userId={fetchedPost.id} currentUser={currentUser} isLoading={isPostLoading} />
           <Form
             postId={postId as string}
             isComment
