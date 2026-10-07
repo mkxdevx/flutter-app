@@ -1,8 +1,6 @@
 import useLoginModal from "@/hooks/useLoginModal";
 import Button from "./Button";
 import useRegisterModal from "@/hooks/useRegister";
-import { BiRightArrowCircle } from "react-icons/bi";
-import { FaArrowCircleRight } from "react-icons/fa";
 
 interface WelcomeBannerProps {
   isComment?: boolean;
@@ -30,17 +28,20 @@ const WelcomeBanner: React.FC<WelcomeBannerProps> = ({ isComment }) => {
   }
 
   return (
-    <div className="text-center py-4">
-      <h1 className="text-white text-2xl font-bold mb-4">Welcome to Flutter</h1>
-      <div className="flex flex-row gap-4 justify-center">
-        <Button label="Login" onClick={loginModal.onOpen} />
-        <Button label="Register" secondary onClick={registerModal.onOpen} />
+    <>
+      <div className="flex items-center justify-between gap-4 px-4 py-4">
+        <div className="flex-1">
+          <h1 className="text-white text-lg font-bold">Welcome to Flutter</h1>
+        </div>
+        <div className="flex flex-1 flex-col gap-2">
+          <div className="my-3">
+            <Button label="Login" onClick={loginModal.onOpen} />
+            <Button label="Register" secondary onClick={registerModal.onOpen} />
+          </div>
+          <button className="outline rounded-full py-1">Continue as Guest</button>
+        </div>
       </div>
-      <hr className="my-4" />
-      <div className="mt-4 flex flex-row align-center justify-center">
-        <p className="font-semi-bold size-md">Continue as Guest...</p>
-      </div>
-    </div>
+    </>
   );
 };
 
