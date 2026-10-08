@@ -28,8 +28,8 @@ const GuestButton = () => {
   }, [])
 
   return (
-    <div className="flex justify-center">
-      <button className="mt-3 lg:mt-5 text-sm font-semibold hover:text-neutral-200 active:text-sky-500 transition" onClick={loginGuest}>
+    <div className="text-center">
+      <button className="mt-3 lg:mt-5 text-sm text-neutral-500 font-semibold hover:text-neutral-200 active:text-sky-500 transition" onClick={loginGuest}>
         Continue as Guest
       </button>
     </div>
