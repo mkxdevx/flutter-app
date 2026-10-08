@@ -25,8 +25,6 @@ const Form: React.FC<FormProps> = ({
   currentUser,
   autoFocus,
 }) => {
-  const registerModal = useRegisterModal();
-  const loginModal = useLoginModal();
   const { mutate: mutatePosts } = usePosts(postId as string);
   const { mutate: mutatePost } = usePost(postId as string);
   const [body, setBody] = useState("");
