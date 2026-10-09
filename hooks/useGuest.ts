@@ -9,7 +9,6 @@ const useGuest = () => {
   const { data: currentUser } = useCurrentUser();
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
-  const [isLoading, setIsLoading] = useState(false);
 
   const loginGuest = useCallback(async () => {
     if (currentUser) {
@@ -17,7 +16,6 @@ const useGuest = () => {
     }
 
     try {
-      setIsLoading(true);
 
       const result = await signIn("credentials", {
         email: "guest@example.com",
@@ -39,14 +37,11 @@ const useGuest = () => {
     } catch (err) {
       console.error(err);
       toast.error("something went wrong");
-    } finally {
-      setIsLoading(false);
     }
-  }, [currentUser, loginModal, registerModal, isLoading]);
+  }, [currentUser, loginModal, registerModal]);
 
   return {
     loginGuest,
-    isLoading,
   };
 };
 
