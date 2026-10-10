@@ -19,7 +19,7 @@ const useGuest = () => {
 
       const result = await signIn("credentials", {
         email: "guest@example.com",
-        password: process.env.NEXT_PUBLIC_GUEST_PASSWORD,
+        password: process.env.GUEST_PASSWORD,
         redirect: false,
       });
 

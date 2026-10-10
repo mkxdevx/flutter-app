@@ -13,7 +13,9 @@ export const authOptions: NextAuthOptions = ({
       credentials: {
         email: { label: "email", type: "text" },
         password: { label: "password", type: "password" },
+        guest: { label: "guest", type: "text "},
       },
+      
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid credentials");
