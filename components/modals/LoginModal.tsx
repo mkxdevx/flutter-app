@@ -6,6 +6,7 @@ import useRegisterModal from "@/hooks/useRegister";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 import { ClipLoader } from "react-spinners";
+import GuestButton from "../GuestButton";
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
@@ -22,14 +23,14 @@ const LoginModal = () => {
     try {
       setIsLoading(true);
       await signIn("credentials", {
-              email,
-              password,
-            });
-      toast.success('Logged in');
+        email,
+        password,
+      });
+      toast.success("Logged in");
       loginModal.onClose();
     } catch (error) {
       console.error(error);
-      toast.error('something went wrong');
+      toast.error("something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -57,16 +58,21 @@ const LoginModal = () => {
 
   const footerContent = (
     <div className="text-neutral-400 text-center mt-4">
-      <p>
+      <div>
         First time using Flutter?
-        <span
-          className="text-white cursor-pointer hover:underline"
-          onClick={onToggle}
-        >
-          {" "}
-          Create an account
-        </span>
-      </p>
+        <div className="mt-3">
+          <p
+            className="text-white cursor-pointer hover:text-neutral-200 active:text-sky-500 transition"
+            onClick={onToggle}
+          >
+            {" "}
+            Create an account
+          </p>
+          <p className="text-white hover:underline ">
+            <GuestButton />
+          </p>
+        </div>
+      </div>
     </div>
   );
 
@@ -76,7 +82,7 @@ const LoginModal = () => {
         disabled={isLoading}
         isOpen={loginModal.isOpen}
         title="Login"
-        actionLabel={isLoading ? (<ClipLoader />)  : "Sign in"}
+        actionLabel={isLoading ? <ClipLoader /> : "Sign in"}
         onClose={loginModal.onClose}
         onSubmit={onSubmit}
         body={bodyContent}

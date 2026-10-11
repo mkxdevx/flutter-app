@@ -15,8 +15,21 @@ export const authOptions: NextAuthOptions = ({
         password: { label: "password", type: "password" },
         guest: { label: "guest", type: "text "},
       },
-      
+
       async authorize(credentials) {
+        // GUEST LOGIN
+        if(credentials?.guest === "true") {
+          const guestUser = await prisma.user.findUnique({
+            where: {
+              email: process.env.GUEST_EMAIL,
+            },
+          });
+          if(!guestUser) {
+            throw new Error("GUest account not found");
+          }
+          return guestUser;
+        }
+        // NORMAL LOGIN CONTINUES BELOW
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid credentials");
         }

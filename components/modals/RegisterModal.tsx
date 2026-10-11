@@ -7,6 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import { ClipLoader } from "react-spinners";
+import GuestButton from "../GuestButton";
 
 const RegisterModal = () => {
   const loginModal = useLoginModal();
@@ -78,16 +79,18 @@ const RegisterModal = () => {
 
   const footerContent = (
     <div className="text-neutral-400 text-center mt-4">
-      <p>
+      <div>
         Already have an account?
-        <span
-          className="text-white cursor-pointer hover:underline"
-          onClick={onToggle}
-        >
-          {" "}
-          Sign in
-        </span>
-      </p>
+        <div className="mt-3">
+          <p
+            className="text-white cursor-pointer hover:text-neutral-200 active:text-sky-500 transition"
+            onClick={onToggle}
+          >
+            {" "}
+            Sign in
+          </p>
+        </div>
+      </div>
     </div>
   );
 

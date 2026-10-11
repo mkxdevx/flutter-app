@@ -41,7 +41,9 @@ const WelcomeBanner: React.FC<WelcomeBannerProps> = ({ isComment }) => {
             <FaCircle size={6} />
             <Button label="Register" onClick={registerModal.onOpen} />
           </div>
-          <GuestButton />
+          <div className="text-center text-neutral-400 font-semibold text-sm">
+            <GuestButton />
+          </div>
         </div>
       </div>
     </>
