@@ -17,7 +17,7 @@ const WelcomeBanner: React.FC<WelcomeBannerProps> = ({ isComment }) => {
     return (
       <div className="flex align-center justify-center border-y border-neutral-700 w-full bg-black">
         <div className="w-full max-w-80 py-2">
-          <button className="w-full rounded-full text-sm font-medium text-center text-sky-500 bg-neutral-900 border-neutral-800 py-2.5 px-4 hover:bg-neutral-800/80 transition">
+          <button className="w-full rounded-full text-sm font-medium text-center text-sky-500 bg-neutral-900 border-neutral-800 py-2.5 px-4 hover:bg-neutral-800/80 transition" onClick={loginModal.onOpen}>
             Login to reply
           </button>
         </div>

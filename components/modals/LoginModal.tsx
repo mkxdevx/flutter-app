@@ -22,12 +22,20 @@ const LoginModal = () => {
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
-      await signIn("credentials", {
+      const result = await signIn("credentials", {
         email,
         password,
+        redirect: false,
       });
-      toast.success("Logged in");
-      loginModal.onClose();
+
+      if (result?.error) {
+        toast.error("Invalid email or password");
+        return;
+      }
+      if (result?.ok) {
+        toast.success("Logged in");
+        loginModal.onClose();
+      }
     } catch (error) {
       console.error(error);
       toast.error("something went wrong");

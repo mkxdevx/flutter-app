@@ -1,7 +1,6 @@
 import useUser from "@/hooks/useUser";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useCallback } from "react";
 
 interface AvatarProps {
   user?: Record<string, any>;
@@ -11,26 +10,31 @@ interface AvatarProps {
   isLoading?: boolean;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ user, isLarge, hasBorder, isComment, isLoading }) => {
+const Avatar: React.FC<AvatarProps> = ({
+  user,
+  isLarge,
+  hasBorder,
+  isComment,
+  isLoading,
+}) => {
   const router = useRouter();
 
-  if(isLoading || !user) {
+  const onClick = (event: React.MouseEvent<HTMLImageElement>) => {
+    event.stopPropagation();
+
+    if (!user?.id) return;
+
+    const url = `/users/${user.id}`;
+    router.push(url);
+  };
+
+  if (isLoading || !user) {
     return (
       <div
         className={`bg-neutral-800 animate-pulse rounded-full border-black transition ${isLarge ? "h-32 w-32" : isComment ? "h-8 w-8" : "h-12 w-12"} ${hasBorder && "border-4 border-black"}`}
       />
     );
   }
-
-  const onClick = useCallback(
-    (event: any) => {
-      event.stopPropagation();
-
-      const url = `/users/${user.id}`;
-      router.push(url);
-    },
-    [router, user.id],
-  );
 
   return (
     <div
@@ -44,10 +48,17 @@ const Avatar: React.FC<AvatarProps> = ({ user, isLarge, hasBorder, isComment, is
         relative
         `}
     >
-      <Image sizes="20" fill style={{
-        objectFit: 'cover',
-        borderRadius: '100%'
-      }} alt="Avatar" onClick={onClick} src={user.profileImage || '/images/placeholder.png'} />
+      <Image
+        sizes="20"
+        fill
+        style={{
+          objectFit: "cover",
+          borderRadius: "100%",
+        }}
+        alt="Avatar"
+        onClick={onClick}
+        src={user.profileImage || "/images/placeholder.png"}
+      />
     </div>
   );
 };

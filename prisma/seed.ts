@@ -896,7 +896,6 @@ const postData = [
 ];
 
 async function deleteTestData() {
-  // delete my test posts
   await prisma.post.deleteMany({
     where: {
       user: {
@@ -905,7 +904,6 @@ async function deleteTestData() {
     },
   });
 
-  // delete test account
   await prisma.user.delete({
     where: {
       username: "JD",
@@ -1019,8 +1017,8 @@ async function createComments() {
         },
       });
 
-      if(!databasePost) {
-        throw new Error(`Post not found`)
+      if (!databasePost) {
+        throw new Error(`Post not found`);
       }
 
       for (const comment of post.comments) {
@@ -1042,7 +1040,7 @@ async function createComments() {
       }
     }
   }
-  console.log("Comments created!")
+  console.log("Comments created!");
 }
 
 async function main() {
@@ -1061,4 +1059,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
-

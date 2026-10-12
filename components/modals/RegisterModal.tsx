@@ -26,6 +26,11 @@ const RegisterModal = () => {
 
   const onSubmit = useCallback(async () => {
     try {
+      if (!email.trim() || !password.trim() || !name || !username.trim()) {
+        toast.error("Please fill in all fields");
+        return;
+      }
+
       setIsLoading(true);
 
       await axios.post("/api/register", {
@@ -34,6 +39,7 @@ const RegisterModal = () => {
         username,
         name,
       });
+
       toast.success("Account created.");
       signIn("credentials", {
         email,

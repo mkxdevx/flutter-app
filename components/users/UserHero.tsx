@@ -17,7 +17,9 @@ const UserHero: React.FC<UserHeroProps> = ({ fetchedUser, isLoading }) => {
         <Image
           src={fetchedUser.coverImage}
           fill
+          sizes="(max-width: 768px) 100vw, 600px"
           alt="Cover Image"
+          loading="eager"
           style={{ objectFit: "cover" }}
         />
       )}
