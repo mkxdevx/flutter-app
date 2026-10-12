@@ -29,7 +29,7 @@ const WelcomeBanner: React.FC<WelcomeBannerProps> = ({ isComment }) => {
     <>
       <div className="flex items-center gap-4 p-8">
         <div className="flex-1 flex flex-col gap-2 items-center">
-          <h1 className="text-white text-xl lg:text-2xl font-bold">
+          <h1 className="text-white text-xl lg:text-2xl font-bold text-center">
             Welcome to <span className="text-sky-500">Flutter</span>
           </h1>
           <BsTwitter size={26} />

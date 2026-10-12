@@ -29,16 +29,7 @@ A fast, responsive social media web application. I took a legacy tutorial setup 
 * **Optimistic UI Updates:** Implemented optimistic updates with SWR so the interface responds immediately while API requests process in the background.
 * **Loading States & Asynchronous Data:** Built loading and fallback states to handle data while requests are loading or unavailable.
 * **Database Seeding & Relationships:** Created and injected seed data while connecting users to posts, comments, likes, and following relationships using Prisma and MongoDB.
-
-## Future Improvements 
-- Search engine
-- Light/dark mode
-- Retweets
-- Bookmarks
-- Personalized feed
-- Delete/edit for post owners
-- Reply threads
-- Following feed
+* **Guest Login** Implemented a guest login feature to provide recruiters and visitors with quick, temporary access to Flutter without needing to create an account. This simplifies the process of exploring the application's features and experiencing its functionality firsthand.
 
 
 ## 📦 How to Run Locally
