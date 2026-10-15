@@ -1,5 +1,6 @@
-import serverAuth from "@/libs/serverAuth";
+import { authOptions } from "@/auth";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth";
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,11 +11,18 @@ export default async function handler(
   }
 
   try {
-    const { currentUser } = await serverAuth(req, res);
-    if(!currentUser) {
-      return res.status(405).end();
+    const session = await getServerSession(req, res, authOptions);
+    if (!session?.user?.email) {
+      return res.status(200).json(null);
     }
-    res.status(200).json(currentUser);
+
+    const currentUser = await prisma?.user.findUnique({
+      where: {
+        email: session.user.email,
+      },
+    });
+
+    return res.status(200).json(currentUser);
   } catch (error) {
     console.error(error);
     return res.status(400).end();
