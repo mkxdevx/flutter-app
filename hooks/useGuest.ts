@@ -22,7 +22,7 @@ const useGuest = () => {
         return;
       }
       
-      toast.success("Successfully joined as guest");
+      toast.success("Joined as guest");
       mutate(result);
     } catch (err) {
       console.error(err);

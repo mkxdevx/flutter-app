@@ -14,11 +14,13 @@ const LoginModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const onToggle = useCallback(() => {
     if (isLoading) return;
     loginModal.onClose();
     registerModal.onOpen();
   }, [isLoading, loginModal, registerModal]);
+  
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);

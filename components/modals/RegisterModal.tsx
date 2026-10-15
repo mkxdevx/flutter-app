@@ -12,7 +12,6 @@ import GuestButton from "../GuestButton";
 const RegisterModal = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -20,8 +19,10 @@ const RegisterModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const onToggle = useCallback(() => {
     if (isLoading) return;
+
     registerModal.onClose();
     loginModal.onOpen();
+    
   }, [isLoading, registerModal, loginModal]);
 
   const onSubmit = useCallback(async () => {

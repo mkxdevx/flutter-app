@@ -17,10 +17,8 @@ const EditModal = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  if (!currentUser) {
-    return null;
-  }
   useEffect(() => {
       setProfileImage(currentUser?.profileImage || "");
       setCoverImage(currentUser?.coverImage || "");
@@ -29,7 +27,7 @@ const EditModal = () => {
       setBio(currentUser?.bio || "");
   }, [currentUser]);
 
-  const [isLoading, setIsLoading] = useState(false);
+
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -59,6 +57,10 @@ const EditModal = () => {
     editModal,
     mutatedFetchedUser,
   ]);
+
+    if (!currentUser) {
+      return null;
+    }
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
