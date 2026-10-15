@@ -2,8 +2,8 @@
 
 A fast, responsive social media web application. I took a legacy tutorial setup and upgraded the entire ecosystem to modern web standards.
 
-## 🚀 Live Demo
-[Not yet deployed]
+## 🚀 Live Application
+(https://flutter-ggxgecfy6-mikaylaesparza06-4663s-projects.vercel.app)
 
 ## Features
 - User authentication
